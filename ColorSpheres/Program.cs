@@ -4,6 +4,9 @@ namespace ColorSpheres
 {
     class Color
     {
+        public const int MaxColorValue = 255;
+        public const int MinColorValue = 0;
+        
         public int Red { get; }
         public int Green { get; }
         public int Blue { get; }
@@ -11,13 +14,13 @@ namespace ColorSpheres
 
         public Color(int red, int green, int blue, int alpha)
         {
-            Red = Math.Clamp(red, 0, 255);
-            Green = Math.Clamp(green, 0, 255);
-            Blue = Math.Clamp(blue, 0, 255);
-            Alpha = Math.Clamp(alpha, 0, 255);
+            Red = Math.Clamp(red, MinColorValue, MaxColorValue);
+            Green = Math.Clamp(green, MinColorValue, MaxColorValue);
+            Blue = Math.Clamp(blue, MinColorValue, MaxColorValue);
+            Alpha = Math.Clamp(alpha, MinColorValue, MaxColorValue);
         }
 
-        public Color(int red, int green, int blue) : this(red, green, blue, 255) { }
+        public Color(int red, int green, int blue) : this(red, green, blue, MaxColorValue) { }
 
         public int GetGrey()
         {
@@ -27,9 +30,9 @@ namespace ColorSpheres
 
     class Sphere
     {
-        public Color Color { get; }
+        public readonly Color Color;
         public double Radius { get; private set; }
-        private int timesThrown;
+        private readonly int timesThrown;
 
         public Sphere(Color color, double radius)
         {
